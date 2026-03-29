@@ -1,0 +1,41 @@
+config:
+  tracing:
+    otlpEndpoint: http://localhost:4317
+    randomSampling: true
+binds:
+- port: 3001
+  listeners:
+  - routes:
+    - hostnames: []
+      matches:
+      - path:
+          pathPrefix: /
+      backends:
+      - mcp:
+          targets:
+          - name: kubernetes-mcp-server
+            stdio:
+              cmd: npx
+              args:
+              - -y
+              - kubernetes-mcp-server@latest
+              env: {}
+          # - name: firecrawl-mcp
+          #   stdio:
+          #     cmd: npx
+          #     args:
+          #     - -y
+          #     - firecrawl-mcp
+          #     env:
+          #       FIRECRAWL_API_KEY: <your-firecrawl-api-key>
+          statefulMode: stateful
+      policies:
+        cors:
+          allowOrigins:
+          - '*'
+          allowHeaders:
+          - mcp-protocol-version
+          - content-type
+          - cache-control
+          exposeHeaders:
+          - Mcp-Session-Id
