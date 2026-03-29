@@ -1,0 +1,10 @@
+[project]
+name = "py-mcp-client"
+version = "0.1.0"
+description = "MCP client that uses Ollama with AgentGateway for tool routing."
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.26.0",
+    "ollama>=0.6.1",
+    "python-dotenv>=1.2.2",
+]
